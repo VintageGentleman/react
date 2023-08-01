@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_Scope.html</title>
+</head>
+<body>
+
+    <h3>Press F12</h3>
+
+    <div class="btn">click!</div>
+    <div class="btn">click!</div>
+    <div class="btn">click!</div>
+    <div class="btn">click!</div>
+    <div class="btn">click!</div>
+
+    <script>
+        /*
+            var로 선언한 변수는
+            function의 중괄호로 만들어진 영역에서는 제대로 작동하지만 
+
+            if, for, arrow function 등으로 만들어진 중괄호에서는 
+            이상하게 동작하는 문제가 있다
+
+            let, const를 통해 변수를 선언하면 해당 문제가 해결된다
+        */
+        var menu = '크림스파게티';
+        function hello() {
+            var menu = '고르곤졸라피자';
+            console.log('function local test:', menu);
+        } 
+        hello();
+        console.log('function globaltest:', menu);
+
+        let fruit = '파인애플';
+        if(true) {
+            let fruit ='사과';
+            console.log('local test:', fruit);
+        }
+        console.log('global test:', fruit);
+
+        const btns = document.getElementsByClassName('btn');
+
+        for(let i = 0; i < btns.length; ++i) {
+            btns[i].onclick = function() { alert(`이것은 버튼${i}입니다.`) };
+        }
+    </script>
+</body>
+</html>

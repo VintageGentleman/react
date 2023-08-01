@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_Default.html</title>
+</head>
+<body>
+    
+    <h3>Press F12</h3>
+
+    <script>
+        // 자바스크립트는 함수의 인자값에 기본값을 설정해 둘 수 있다
+        function minsu(name='박민수', age=20) {
+            console.log('name:', name);
+            console.log('age:', age);
+        }
+
+        minsu();
+        minsu('김민수');
+        minsu('최민수', 33);
+    </script>
+
+</body>
+</html>
