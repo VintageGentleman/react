@@ -16,7 +16,7 @@
         const employee = {
             firstName : 'Steven',
             salary: 8000
-        }
+        };
         
         console.log(employee);
 
@@ -33,7 +33,24 @@
         bocoblin.print();
 
         // 객체도 스프레드가 가능하다
-        const breakfast = {}
+        const food1 = {
+            drink: '아메리카노',
+            snack: '도리토스'
+        };
+        
+        const food2 = {
+            drink: '아메리카노',
+            snack: '도리토스',
+            tea: '홍차'
+        };
+
+        const food3 = {
+            ...drink,
+            tea: '홍차'
+        };
+
+        console.log(food2);
+        console.log(food3);
 
     </script>
 </body>

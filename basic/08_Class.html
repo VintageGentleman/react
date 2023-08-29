@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>08_Class</title>
+</head>
+<body>
+    
+    <h3># 자바스크립트에서 클래스 사용하기</h3>
+
+    <div>Press F12</div>
+
+    <script>
+        // 오리지날 자바스크립트 방식의 클래스
+        function Apple(size, price) {
+            this.size = size;
+            this.price = price;
+            this.print = function() {
+                console.log(`이 사과는 크기가 ${size}, 가격이 ${price}입니다.`);
+            }
+        }
+
+        // 클래스의 프로토타입을 통한 원본 클래스를 수정
+        Apple.prototype.print2 = function() {
+            console.log(`새로 추가된 기능. ${this.size}/${this.price}`);
+        };
+
+        var Apple1 = new Apple('Large', 1250);
+        Apple1.print();
+        Apple1.print2();
+
+        // class 문법 : 원래 있던 클래스 문법에 편의성을 제공하는 문법
+        class Coffee {
+            constructor(name, price, country) {
+                this.name = name;
+                this.price = price;
+                this.country = country;
+            }
+
+            // method
+            info() {
+                console.log(`${this.name}는 ${this.price}원입니다.`);
+            }
+        }
+
+        let americano = new Coffee('아메리카노', 1600, 'KR');
+        americano.info();
+
+        // 상속
+        class Latte extends Coffee {
+            constructor(milk=70) {
+                super('카페라떼', 3000, 'EN'); // parent constructor
+                this.milk = milk;
+            }
+
+            // 오버라이드
+            info() {
+                console.log(`오버라이드 된 info: ${this.price}`);
+            }
+        }
+        
+        const latte1 = new Latte(80);
+        latte1.info();
+    </script>
+
+</body>
+</html>
