@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05_Destructing</title>
+</head>
+<body>
+    
+    <h3># 구조 분해를 통한 할당</h3>
+
+    <div>press F12</div>
+
+    <script>
+        const food = {
+            price: 3500,
+            option: 3,
+            name: 'pizza'
+        };
+
+        // 구조 분해 할당 (Object의 key값을 통해 할당)
+        const {name, option} = food;
+
+        console.log(name); // 'pizza'
+        console.log(option); // 3
+
+        // 함수의 인자값으로 구조 분해 할당 사용하기
+        const foodInfo = ({name, price, info}) => {
+            console.log(`${name}의 가격은 ${price}원 입니다.`); // hamburger의 가격은 4000원입니다.
+            info();
+        }
+
+        foodInfo({
+            name: 'hamburger',
+            option: 2,
+            price: 4000,
+            info: () => console.log('전달된 함수 실행')
+        });
+
+        // 깊이가 깊은 구조 분해 할당 (Object 내부의 Object를 분해하여 사용)
+        const introduceMyself = ({
+            lastName,
+            firstName, 
+            favorites: { food }}) => {
+            console.log(`제 이름은 ${lastName} ${firstName}입니다.`);
+            console.log(`가장 좋아하는 음식은 ${food}입니다.`);
+        };
+
+        const personInfo = {
+            firstName: 'Smith',
+            lastName: 'King',
+            salary: 35000,
+            favorites: {
+                food: 'pasta',
+                music: 'hype boy'
+            }
+        };
+        
+        introduceMyself(personInfo);
+
+        // 배열 구조 분해하기
+        const animals = ['치타', '사자', '호랑이', '기린', '고양이', '강아지'];
+
+        // key 값이 없으므로 위치 기반으로 분해된다
+        const [a, b, c, d, e, f, g] = animals;
+        const [,,,,animal] = animals; 
+
+        console.log(a); // 치타
+        console.log(d); // 기린
+        console.log(animal); // 고양이
+
+    </script>
+</body>
+</html>

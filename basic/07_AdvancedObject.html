@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07_AdvancedObject</title>
+</head>
+<body>
+    
+    <h3># 개선된 객체 선언 방식</h3>
+
+    <div>Press F12</div>
+
+    <script>
+        // 원래 객체를 만들던 방식 => key: value
+        const employee = {
+            firstName : 'Steven',
+            salary: 8000
+        }
+        
+        console.log(employee);
+
+        // 개선된 객체 선언 방식 => 변수만 넣으면 알아서 key/value로 변환
+        const name = '보코블린';
+        const health = 100;
+        const print = function() { 
+            console.log(`${this.name}/체력:${this.health}`);
+        }
+
+        const bocoblin = { name, health, print };
+
+        console.log(bocoblin);
+        bocoblin.print();
+
+        // 객체도 스프레드가 가능하다
+        const breakfast = {}
+
+    </script>
+</body>
+</html>

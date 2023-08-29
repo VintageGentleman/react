@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06_Spread</title>
+</head>
+<body>
+    
+    <h3># 스프레드 연산자 (...)</h3>
+
+    <div>press F12</div>
+
+    <script>
+        // ... : 스프레드 연산자, 배열을 펼쳐서 원소들로 만들거나
+        //       원소들을 합쳐서 배열로 만든다 (우리가 알고있던 것)
+        const stations = ['노량진', '용산', '남영', '서울역', '시청', '종각'];
+        console.log(stations); // stations 배열 출력
+
+        // 두 명령어는 완전히 동일하다
+        console.log(...stations);
+        console.log('노량진', '용산', '남영', '서울역', '시청', '종각');
+
+        // ex: 배열을 뒤집어서 사용해야 하는 경우
+
+        // reverse를 원본 배열에 사용하는 경우 원본이 변경된다 (좋지 않음)
+        // console.log(...stations.reverse());
+
+        // 새로운 배열을 생성하여 사용하기 (원본이 변경되지 않음)
+        const reversed = [...stations].reverse();
+
+        console.log(...stations);
+        console.log(...reversed);
+
+        // 스프레드 연산자로 특정 위치의 값만 구하기 (스프레드 연산자 + 구조분해 응용)
+        const [firstStation, ...rest] = stations;
+        console.log('첫 번째 역:', firstStation);
+        console.log('나머지 역:', rest);    
+
+        const [lastStation, ...rest2] = [...stations].reverse();
+        console.log('마지막 역:', lastStation);
+        console.log('나머지 역:', rest2.reverse());
+
+        // 함수의 인자에서 스프레드 연산자로 합치기
+        
+        // 합쳐서 받음
+        function subwayInfo(...stations) {
+            console.log('총 운행하는 역의 수:', stations.length);
+            console.log('출발하는 역의 이름:', stations[0]);
+            console.log('종착역의 이름:', stations[stations.length - 1]);
+            console.log('중간에 거쳐가는 역의 개수:', stations.length - 2);
+            
+            let [firstStation, ...rest] = stations;
+            let [lastStation, ...rest2] = rest.reverse();
+
+            console.log('총 운행하는 역의 수(스프레드):', stations.length);
+            console.log('출발하는 역의 이름(스프레드):', firstStation);
+            console.log('종착역의 이름(스프레드):', lastStation);
+            console.log('중간에 거쳐가는 역의 개수(스프레드):', rest2.length, `(${rest2.join(',')})`);
+        }
+
+        // 나눠서 주고
+        subwayInfo(...stations);
+    </script>
+</body>
+</html>
