@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_ReactComponent</title>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script>
+        /*
+            # 컴포넌트 (Component)
+
+            - React Element를 재사용할 수 있는 단위
+        */
+
+        // 함수로 컴포넌트 만들기
+        function DrinkList() {
+            return React.createElement(
+                'ul', 
+                null, 
+                React.createElement('li', null, '아메리카노'),
+                React.createElement('li', null, '카페라떼'),
+                React.createElement('li', null, '카페모카'),
+                React.createElement('li', null, '캬라멜마끼아또')
+            );
+        };
+
+        // 데이터들을 활용해 컴포넌트 생성하기
+        const fruits = ['딸기', '초코', '바나나', '민트 초코'];
+
+        function FruitList({ items }) {
+            return React.createElement(
+                'ul',
+                { className: 'fruits' },
+                items.map((item, i) => React.createElement('li', { id: `item${i}` }, item))
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        // 랜더링 (그림 그리는 작업)
+        root.render(
+            [
+                React.createElement(DrinkList, null, null),
+                React.createElement(FruitList, { items: fruits }, null)
+            ]
+        );
+    </script>
+
+</body>
+</html>

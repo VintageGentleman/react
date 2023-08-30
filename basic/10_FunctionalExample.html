@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10_FunctionalExample</title>
+</head>
+<body>
+    
+    <h3># 함수형 예제</h3>
+
+    <div>Press F12</div>
+
+    <script>
+        const compose = (...fns) => arg => fns.reduce((composed, fn) => fn(composed), arg);
+
+        const getCurrentTime = () => new Date();
+
+        // Date 인스턴스를 전달하면 timeObj를 뱉는 순수 함수
+        const getTimeObj = date => ({
+            hours: date.getHours(),
+            minutes: date.getMinutes(),
+            seconds: date.getSeconds()
+        });
+
+        const appendAPMP = timeObj => ({
+            ...timeObj,
+            ampm: timeObj.hours >= 12 ? 'PM' : 'AM'
+        });
+
+        const humanHours = timeObj => ({
+            ...timeObj,
+            hours: timeObj.hours > 12 ? timeObj.hours - 12 : timeObj.hours == 0 ? 12 : timeObj.hours
+        });
+
+        // 시간 객체를 전달하면 
+        // 해당 시간 객체에 각 단위를 전달받아 해당 단위의 시간에 0을 추가하는 함수를 반환
+        const addZero = unit => timeObj => ({
+            ...timeObj,
+            [unit]: timeObj[unit] < 10 ? '0' + timeObj[unit] : timeObj[unit]
+        });
+        
+        // 함수를 실행하면 그 포맷으로 시간을 변환해주는 함수를 뱉는 함수
+        const formatTime = format => timeObj => 
+            format.replace('hh', timeObj.hours)
+                .replace('mm', timeObj.minutes)
+                .replace('ss', timeObj.seconds)
+                .replace('tt', timeObj.ampm);
+
+        const convertToHumanTime = timeObj =>
+            compose(
+                appendAPMP,
+                humanHours
+            )(timeObj);
+        
+        const doubleDigits = humanTime => 
+            compose(
+                addZero('hours'),
+                addZero('minutes'),
+                addZero('seconds')
+            )(humanTime);
+
+        const consoleLog = message => console.log(message);
+        const fileLog = message => {
+            // file output을 구현
+        };
+        const display = target => time => target(time);
+
+        // console.log(doubleDigits(convertToHumanTime(getTimeObj(getCurrentTime()))));
+        const start = () => {
+            setInterval(compose(
+                getCurrentTime,
+                getTimeObj,
+                convertToHumanTime,
+                doubleDigits,
+                formatTime('hh:mm:ss tt'),
+                display(consoleLog)
+            ), 1000);
+        }
+        
+        start();
+    </script>
+</body>
+</html>
